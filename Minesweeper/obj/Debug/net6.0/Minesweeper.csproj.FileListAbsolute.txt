@@ -1,0 +1,15 @@
+D:\Skolan\minesweeper\Minesweeper\bin\Debug\net6.0\Minesweeper.exe
+D:\Skolan\minesweeper\Minesweeper\bin\Debug\net6.0\Minesweeper.deps.json
+D:\Skolan\minesweeper\Minesweeper\bin\Debug\net6.0\Minesweeper.runtimeconfig.json
+D:\Skolan\minesweeper\Minesweeper\bin\Debug\net6.0\Minesweeper.dll
+D:\Skolan\minesweeper\Minesweeper\bin\Debug\net6.0\Minesweeper.pdb
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\Minesweeper.csproj.AssemblyReference.cache
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\Minesweeper.GeneratedMSBuildEditorConfig.editorconfig
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\Minesweeper.AssemblyInfoInputs.cache
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\Minesweeper.AssemblyInfo.cs
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\Minesweeper.csproj.CoreCompileInputs.cache
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\Minesweeper.dll
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\refint\Minesweeper.dll
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\Minesweeper.pdb
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\Minesweeper.genruntimeconfig.cache
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net6.0\ref\Minesweeper.dll
