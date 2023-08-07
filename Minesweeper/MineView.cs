@@ -36,7 +36,7 @@ class MineView
             sb.Append(i);
             for(int k = 0; k < field.getSize()[0]; k++)
             {
-                sb.Append("*");
+                sb.Append("?");
             }
             sb.Append("\n");
         }
