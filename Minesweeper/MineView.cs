@@ -1,4 +1,5 @@
 namespace Minesweeper;
+using System.Text;
 
 class MineView
 {
@@ -8,16 +9,37 @@ class MineView
     public MineView(Minefield field) 
     {
         this.field = field;
-        printField();
+        printInitialField();
     }
 
-    public void printField()
+    public void printInitialField()
     {
-        Console.Write(" ");
-        int[] fieldSize = field.getSize();
-        for(int i = 0; i < fieldSize[0]; i++) {
-            Console.Write(i);
-        }
+        Console.WriteLine(printXField(this.field));
+        Console.WriteLine(printYField(this.field));
+    }
 
+    private StringBuilder printXField(Minefield field) 
+    {
+        StringBuilder sb = new StringBuilder(" ", 50);
+        for(int i = 0; i < field.getSize()[0]; i++) 
+        {
+            sb.Append(i);
+        }
+        return sb;
+    }
+
+    private StringBuilder printYField(Minefield field) 
+    {
+        StringBuilder sb = new StringBuilder("", 50);
+        for(int i = field.getSize()[1]-1; i >= 0; i--)
+        {
+            sb.Append(i);
+            for(int k = 0; k < field.getSize()[0]; k++)
+            {
+                sb.Append("*");
+            }
+            sb.Append("\n");
+        }
+        return sb;
     }
 }
