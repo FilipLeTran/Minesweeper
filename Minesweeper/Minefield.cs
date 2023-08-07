@@ -18,4 +18,18 @@ class Minefield
         }
         return dimensions;
     }
+
+    public bool revealSquares(string guess)
+    {
+        if(guess.GetLength != 3) 
+        {
+            throw new InvalidOperationException("Please type the in the following format: 'x y'");
+        } 
+        else 
+        {
+            string[] guessValue = guess.Split(' ');
+            bool isMine = _bombLocations[guessValue[0], guessValue[1]];
+        }
+
+    } 
 }

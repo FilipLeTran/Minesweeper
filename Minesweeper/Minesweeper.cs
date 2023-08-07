@@ -23,7 +23,11 @@ class Minesweeper
 
         var fieldView = new MineView(field); 
 
-
+        while(true)
+        {
+            string userInput = Console.ReadLine();
+            
+        }
         // Game code...
         // run by typign dotnet run --project D:\Skolan\minesweeper\Minesweeper\Minesweeper.csproj
     }
