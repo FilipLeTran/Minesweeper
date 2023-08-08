@@ -22,12 +22,26 @@ class Minesweeper
         //0|X31
 
         var fieldView = new MineView(field); 
-
         while(true)
         {
             string userInput = Console.ReadLine();
-            field.revealSquares(userInput);
-            //fieldView.updateBoard(field.revealSquares(userInput));
+            if(userInput.Length != 3)
+            {
+                Console.WriteLine("Please type the in the following format: 'x y'");
+            } 
+            else 
+            {
+                int[] grid = field.revealSquares(userInput);
+                if(grid != null)  
+                {
+                    fieldView.updateBoard(grid, field.parseCoordinates(userInput));
+                }
+                else 
+                {
+                    Console.WriteLine("You lost!");
+                    System.Environment.Exit(1);
+                }
+            }
         }
         // Game code...
         // run by typign dotnet run --project D:\Skolan\minesweeper\Minesweeper\Minesweeper.csproj
