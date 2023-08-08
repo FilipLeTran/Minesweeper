@@ -27,6 +27,7 @@ class Minesweeper
         {
             string userInput = Console.ReadLine();
             field.revealSquares(userInput);
+            //fieldView.updateBoard(field.revealSquares(userInput));
         }
         // Game code...
         // run by typign dotnet run --project D:\Skolan\minesweeper\Minesweeper\Minesweeper.csproj
