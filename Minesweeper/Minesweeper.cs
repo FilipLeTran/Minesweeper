@@ -26,7 +26,7 @@ class Minesweeper
         while(true)
         {
             string userInput = Console.ReadLine();
-            
+            field.revealSquares(userInput);
         }
         // Game code...
         // run by typign dotnet run --project D:\Skolan\minesweeper\Minesweeper\Minesweeper.csproj

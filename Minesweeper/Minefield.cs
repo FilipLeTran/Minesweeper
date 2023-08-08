@@ -1,4 +1,5 @@
 ﻿namespace Minesweeper;
+using System;
 
 class Minefield
 {
@@ -21,15 +22,46 @@ class Minefield
 
     public bool revealSquares(string guess)
     {
-        if(guess.GetLength != 3) 
+        
+        int[] coordinates = parseCoordinates(guess);
+
+        if(isMine(coordinates)) // dead 
+        {
+            return false;
+        } 
+        else // not dead, reveal surrounding ???
+        {
+            
+        }
+
+
+
+        return false;
+    } 
+
+    private int[] parseCoordinates(string guess)
+    {
+        if(guess.Length != 3) 
         {
             throw new InvalidOperationException("Please type the in the following format: 'x y'");
         } 
         else 
         {
-            string[] guessValue = guess.Split(' ');
-            bool isMine = _bombLocations[guessValue[0], guessValue[1]];
+            string[] coordinates = guess.Split(' ');
+            return new int[2] {stringToInt(coordinates[0]), stringToInt(coordinates[1])};
         }
+    }
 
-    } 
+    private int stringToInt(string str) 
+    {
+        return Int32.Parse(str);
+    }
+
+    private bool isMine(int[] coordinates)
+    {
+        return _bombLocations[coordinates[0], coordinates[1]];
+    }
+
+
+    
 }
