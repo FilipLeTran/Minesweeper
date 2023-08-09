@@ -68,6 +68,9 @@ class Minefield
             for(int y = yCord+1; y > yCord-2; y--)
             {
                 if(isOutsideField(x, y)) continue;
+                // Console.Write(x);
+                // Console.Write(y);
+                // Console.Write("\n");
                 if(isMine(x, y)) counter++;
             }
         }
@@ -87,7 +90,7 @@ class Minefield
 
     private bool isOutsideField(int x, int y)
     {
-        return x < 0 || y < 0 || x > xLength || y > yLength;
+        return x < 0 || y < 0 || x >= xLength || y >= yLength;
     }
 
     private bool isMine(int x, int y)
