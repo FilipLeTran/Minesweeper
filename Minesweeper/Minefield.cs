@@ -87,7 +87,7 @@ class Minefield
         return new int[2] {StringToInt(input[0]), StringToInt(input[1])};
     }
 
-    public bool Unexplored()
+    public bool IsUnexplored()
     {
         for(int i = 0; i < xLength; i++)
         {

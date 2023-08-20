@@ -22,30 +22,28 @@ class Minesweeper
         //0|X31
 
         MineView fieldView = new MineView(field); 
-        while(field.Unexplored())
+        while(field.IsUnexplored())
         {
             string userInput = Console.ReadLine();
             if(userInput.Length != 3)
             {
-                Console.WriteLine("Please type the in the following format: 'x y'");
+                fieldView.CorrectInputFormat();
             } 
             else 
             {
-                int[,] grid = field.RevealSquares(userInput);
-                if(grid != null)  
+                int[,] updatedMinefield = field.RevealSquares(userInput);
+                if(updatedMinefield != null)  
                 {
-                    fieldView.UpdateBoard(grid);
+                    fieldView.UpdateBoard(updatedMinefield);
                 }
                 else 
                 {
-                    Console.WriteLine("You lost! Mine exploded!");
-                    System.Environment.Exit(1);
+                    fieldView.MineExploded();
                 }
             }
         }
-        Console.WriteLine("Victory! You completed the game :)");
+        fieldView.GameCleared();
 
-        // Game code...
         // run by typign dotnet run --project D:\Skolan\minesweeper\Minesweeper\Minesweeper.csproj
     }
 }

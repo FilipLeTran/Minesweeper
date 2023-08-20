@@ -53,6 +53,16 @@ class MineView
         PrintY(this.field);
     }
 
+    public void GameCleared() { Console.WriteLine("Victory! You completed the game :)"); }
+
+    public void MineExploded()
+    {
+        Console.WriteLine("You lost! Mine exploded!");
+        System.Environment.Exit(1);
+    }
+          
+    public void CorrectInputFormat() { Console.WriteLine("Please type the in the following format: 'x y'"); }
+
     private void PrintX(Minefield field)
     {
         Console.Write("  ");
