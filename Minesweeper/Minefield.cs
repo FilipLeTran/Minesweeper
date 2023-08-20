@@ -1,7 +1,7 @@
 ﻿namespace Minesweeper;
 using System;
 
-class Minefield
+class Minefield : AdjacentConditional
 {
     private const int xLength = 5;
     private const int yLength = 5;
@@ -31,7 +31,7 @@ class Minefield
         {
             for(int y = yCord-1; y <= yCord+1; y++)
             {
-                if(IsOutsideField(x, y) || HasVisited(x, y)) continue;
+                if(IsOutsideField(x, y, xLength, yLength) || HasVisited(x, y)) continue;
                 visitedSquares[x, y] = true; //prevent inf loop on empty space
                 if(IsMine(x, y))
                 {
@@ -64,12 +64,6 @@ class Minefield
         return false;
     }
 
-    public bool IsOutsideField(int x, int y)
-    {
-        return 0 > x || x >= xLength || 
-               0 > y || y >= yLength;
-    }
-    
     private bool HasVisited(int x, int y) { return visitedSquares[x, y]; }
 
     private bool IsMine(int x, int y) { return _bombLocations[x, y]; }

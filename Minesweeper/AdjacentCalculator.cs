@@ -1,6 +1,6 @@
 namespace Minesweeper;
 
-class AdjacentCalculator 
+class AdjacentCalculator : AdjacentConditional
 {
     private int x, y;
     private bool[,] minefield;
@@ -8,20 +8,13 @@ class AdjacentCalculator
 
     public AdjacentCalculator(int x, int y, bool[,] minefield)
     {
-        // this.x = builder.getX();
-        // this.y = builder.getY();
-        // this.field = builder.getField();
+
         this.x = x;
         this.y = y;
         this.minefield = minefield;
         this.xFieldLength = this.minefield.GetLength(0);
         this.yFieldLength = this.minefield.GetLength(1);
     }
-
-    // public AdjacentCalculatorBuilder builder()
-    // {
-    //     return new AdjacentCalculatorBuilder();
-    // }
 
     public int TotalAdjacentMines()
     {
@@ -30,7 +23,7 @@ class AdjacentCalculator
         {
             for(int y = this.y-1; y <= this.y+1; y++)
             {
-                if(IsOutsideField(x, y)) continue;
+                if(IsOutsideField(x, y, xFieldLength, yFieldLength)) continue;
                 if(this.minefield[x, y] == true) counter++;
             }
         }
@@ -38,9 +31,9 @@ class AdjacentCalculator
         return counter;
     }
 
-    private bool IsOutsideField(int x, int y)
-    {
-        return 0 > x || x >= xFieldLength || 
-               0 > y || y >= yFieldLength;
-    }
+    // public bool IsOutsideField(int x, int y)
+    // {
+    //     return 0 > x || x >= xFieldLength || 
+    //            0 > y || y >= yFieldLength;
+    // }
 }

@@ -33,7 +33,7 @@ class Minesweeper
             {
                 fieldView.CorrectInputFormat();
             } 
-            else if(field.IsOutsideField(x, y))
+            else if(field.IsOutsideField(x, y, field.GetBombs().GetLength(0), field.GetBombs().GetLength(1)))
             {
                 fieldView.CorrectInputRange();
             }
