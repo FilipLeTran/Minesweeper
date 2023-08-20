@@ -5,109 +5,97 @@ class Minefield
 {
     private const int xLength = 5;
     private const int yLength = 5;
-
+    private bool[,] visitedCoordinates = new bool[xLength, yLength];
     private bool[,] _bombLocations = new bool[xLength, yLength];
 
-    public void SetBomb(int x, int y)
+    public void SetBomb(int x, int y) { _bombLocations[x, y] = true; }
+
+    public bool[,] GetBombs() { return _bombLocations; }
+
+    public int[,] RevealSquares(string guess)
     {
-        _bombLocations[x, y] = true;
-    }
-
-    public int[] getSize()
-    {
-        int[] dimensions = new int[2];
-        for(int i = 0; i < 2; i++) 
-        {
-            dimensions[i] = _bombLocations.GetLength(i);
-        }
-        return dimensions;
-    }
-
-    public int[] revealSquares(string guess)
-    {
-        int[] coordinates = parseCoordinates(guess);
-
-
-        if(isMine(coordinates[0], coordinates[1])) // dead 
+        int[] coordinates = ParseCoordinates(guess);
+        if(IsMine(coordinates[0], coordinates[1])) // dead 
         {
             return null;
         } 
         else // not dead, reveal surrounding ???
         {
-            return revealAdjacentSquares(coordinates[0], coordinates[1]);
+            return RevealAdjacentSquares(coordinates[0], coordinates[1]);
         }  
     } 
 
-    private int[] revealAdjacentSquares(int xCord, int yCord)
+    private int[,] RevealAdjacentSquares(int xCord, int yCord)
     {
-        int[] adjacentSquares = new int[9];
-        int index = 0;
-        for(int x = xCord-1; x < xCord+2; x++)
+        int[,] newGrid = new int[xLength, yLength];
+        for(int x = xCord-1; x <= xCord+1; x++)
         {
-            for(int y = yCord+1; y > yCord-2; y--)
+            for(int y = yCord-1; y <= yCord+1; y++)
             {
-                if(isMine(x, y))
+                if(IsOutsideField(x, y) || HasVisited(x, y)) continue;
+                if(IsMine(x, y))
                 {
-                    adjacentSquares[index] = -1;    
+                    newGrid[x,y] = -1;   
                 }
                 else 
                 {
-                    adjacentSquares[index] = getNeighbours(x, y);
-                    index++;
+                    AdjacentCalculator calc = new AdjacentCalculator(x, y, _bombLocations);
+                    int totalMines = calc.TotalAdjacentMines();
+                    if(totalMines == 10) // if empty
+                    {
+                        visitedCoordinates[x, y] = true;
+                        RevealAdjacentSquaresAgain(x, y, newGrid);
+                    }
+                    newGrid[x,y] = totalMines;
                 }
             }
         }
-        return adjacentSquares;
+        return newGrid;
     }
 
-    private int getNeighbours(int xCord, int yCord)
+    private void RevealAdjacentSquaresAgain(int xCord, int yCord, int[,] previousGrid)
     {
-        int counter = 0;
-        for(int x = xCord-1; x < xCord+2; x++)
+        for(int x = xCord-1; x <= xCord+1; x++)
         {
-            for(int y = yCord+1; y > yCord-2; y--)
+            for(int y = yCord-1; y <= yCord+1; y++)
             {
-                if(isOutsideField(x, y)) continue;
-                // Console.Write(x);
-                // Console.Write(y);
-                // Console.Write("\n");
-                if(isMine(x, y)) counter++;
+                if(IsOutsideField(x, y) || HasVisited(x, y)) continue;
+                if(IsMine(x, y))
+                {
+                    previousGrid[x,y] = -1;    
+                }
+                else 
+                {
+                    AdjacentCalculator calc = new AdjacentCalculator(x, y, _bombLocations);
+                    int totalMines = calc.TotalAdjacentMines();
+                    if(totalMines == 10)
+                    {
+                        visitedCoordinates[x, y] = true; //prevent inf loop on empty space
+                        RevealAdjacentSquaresAgain(x, y, previousGrid);
+                    }
+                    previousGrid[x,y] = totalMines;
+                }
             }
         }
-        return counter;
     }
 
-    public int[] parseCoordinates(string guess)
-    {
-        string[] coordinates = guess.Split(' ');
-        return new int[2] {stringToInt(coordinates[0]), stringToInt(coordinates[1])};
-    }
-    private int stringToInt(string str) 
 
+    public int[] ParseCoordinates(string guess)
     {
-        return Int32.Parse(str);
+        string[] input = guess.Split(' ');
+        return new int[2] {StringToInt(input[0]), StringToInt(input[1])};
     }
 
-    private bool isOutsideField(int x, int y)
-    {
-        return x < 0 || y < 0 || x >= xLength || y >= yLength;
-    }
 
-    private bool isMine(int x, int y)
+    private bool IsOutsideField(int x, int y)
     {
-        return checkMineLocation(x, y);
+        return 0 > x || x >= xLength || 
+               0 > y || y >= yLength;
     }
+    
+    private bool HasVisited(int x, int y) { return visitedCoordinates[x, y]; }
 
-    private bool checkMineLocation(int x, int y)
-    {
-        if(isOutsideField(x, y))
-        {
-            Console.WriteLine("Outside field range!");
-            return false;
-        } 
-        else 
-        {
-            return _bombLocations[x, y];
-        }
-    }
+    private int StringToInt(string str) { return Int32.Parse(str); }
+
+    private bool IsMine(int x, int y) { return _bombLocations[x, y]; }
 }

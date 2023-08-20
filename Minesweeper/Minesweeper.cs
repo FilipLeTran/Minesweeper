@@ -31,14 +31,14 @@ class Minesweeper
             } 
             else 
             {
-                int[] grid = field.revealSquares(userInput);
+                int[,] grid = field.RevealSquares(userInput);
                 if(grid != null)  
                 {
-                    fieldView.updateBoard(grid, field.parseCoordinates(userInput));
+                    fieldView.UpdateBoard(grid);
                 }
                 else 
                 {
-                    Console.WriteLine("You lost!");
+                    Console.WriteLine("You lost! Mine exploded!");
                     System.Environment.Exit(1);
                 }
             }

@@ -5,69 +5,89 @@ class MineView
 {
 
     public Minefield field;
+    private string[,] minefield;
+    private int xFieldLength, yFieldLength;
 
-    public MineView(Minefield field) 
+    public MineView(Minefield field)
     {
         this.field = field;
-        printInitialField();
+        xFieldLength = field.GetBombs().GetLength(0);
+        yFieldLength = field.GetBombs().GetLength(1);
+        this.minefield = CreateDefaultUnknownField();
+        PrintInitialField();
     }
 
-    public void printInitialField()
+    public void PrintInitialField()
     {
-        Console.WriteLine(printXField(this.field));
-        Console.WriteLine(printYField(this.field));
+        PrintX(this.field);
+        PrintY(this.field);
     }
 
-    public void updateBoard(int[] squares, int[] coordinates)
+    public void UpdateBoard(int[,] squares)
     {
-        Console.WriteLine(printXField(this.field));
-        StringBuilder sb = new StringBuilder("", 50);
-        int[] coords = coordinates;
-        int index = 0;
-        for(int i = field.getSize()[1]-1; i >= 0; i--)
+        PrintX(this.field);
+        for (int y = yFieldLength - 1; y >= 0; y--)
         {
-            sb.Append(i);
-            for(int k = 0; k < field.getSize()[0]; k++)
+            for (int x = 0; x < xFieldLength; x++)
             {
-                if(coords[0] == i && coords[1] == k)
+                int square = squares[x, y];
+                if(square != 0) // if square has been "explored"
                 {
-                    if(squares[index] == -1) sb.Append("x");
-                    sb.Append(squares[index].ToString());
-                    index++;
-                }
-                else
-                {
-                    sb.Append("?");
+                    if (square == -1) // if mine
+                    {
+                        SetMinefieldView(x, y, "X");
+                        continue;
+                    }
+                    else if (square == 10) // if empty
+                    {
+                        SetMinefieldView(x, y, " ");
+                        continue;
+                    }
+                    else // if tile has value
+                    {
+                        SetMinefieldView(x, y, square.ToString());
+                    }
                 }
             }
-            sb.Append("\n");
         }
-        sb.Append("\n");
-        Console.Write(sb);
+        PrintY(this.field);
     }
 
-    private StringBuilder printXField(Minefield field) 
+    private void PrintX(Minefield field)
     {
-        StringBuilder sb = new StringBuilder(" ", 50);
-        for(int i = 0; i < field.getSize()[0]; i++) 
+        Console.Write("  ");
+        for (int i = 0; i < xFieldLength; i++)
         {
-            sb.Append(i);
+            Console.Write(i);
         }
-        return sb;
+        Console.Write("\n");
     }
 
-    private StringBuilder printYField(Minefield field) 
+    private void PrintY(Minefield field)
     {
-        StringBuilder sb = new StringBuilder("", 50);
-        for(int i = field.getSize()[1]-1; i >= 0; i--)
+        for (int y = yFieldLength - 1; y >= 0; y--)
         {
-            sb.Append(i);
-            for(int k = 0; k < field.getSize()[0]; k++)
+            Console.Write(y + "|");
+            for (int x = 0; x < xFieldLength; x++)
             {
-                sb.Append("?");
+                Console.Write(minefield[x, y]);
             }
-            sb.Append("\n");
+            Console.Write("\n");
         }
-        return sb;
+    }
+
+    private void SetMinefieldView(int x, int y, string value) { minefield[x, y] = value; }
+
+    private string[,] CreateDefaultUnknownField()
+    {
+        string[,] initialField = new string[xFieldLength, yFieldLength];
+        for (int i = 0; i < xFieldLength; i++)
+        {
+            for (int k = 0; k < yFieldLength; k++)
+            {
+                initialField[i, k] = "?";
+            }
+        }
+        return initialField;
     }
 }
