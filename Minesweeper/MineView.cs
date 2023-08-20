@@ -63,6 +63,10 @@ class MineView
           
     public void CorrectInputFormat() { Console.WriteLine("Please type the in the following format: 'x y'"); }
 
+    public void CorrectInputRange() { 
+        Console.WriteLine("Please type the values within the ranges of: 0-" + (xFieldLength-1) + " for the x value and 0-" + (yFieldLength-1) + " for the y value");
+    }
+
     private void PrintX(Minefield field)
     {
         Console.Write("  ");
@@ -84,6 +88,7 @@ class MineView
             }
             Console.Write("\n");
         }
+        Console.WriteLine("-------------");
     }
 
     private void SetMinefieldView(int x, int y, string value) { minefield[x, y] = value; }

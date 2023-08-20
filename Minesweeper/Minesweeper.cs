@@ -1,4 +1,5 @@
 ﻿namespace Minesweeper;
+using System;
 
 class Minesweeper
 {
@@ -25,13 +26,20 @@ class Minesweeper
         while(field.IsUnexplored())
         {
             string userInput = Console.ReadLine();
+            int[] coordinates = ParseCoordinates(userInput);
+            int x = coordinates[0];
+            int y = coordinates[1];
             if(userInput.Length != 3)
             {
                 fieldView.CorrectInputFormat();
             } 
+            else if(field.IsOutsideField(x, y))
+            {
+                fieldView.CorrectInputRange();
+            }
             else 
             {
-                int[,] updatedMinefield = field.RevealSquares(userInput);
+                int[,] updatedMinefield = field.RevealSquares(x, y);
                 if(updatedMinefield != null)  
                 {
                     fieldView.UpdateBoard(updatedMinefield);
@@ -45,5 +53,11 @@ class Minesweeper
         fieldView.GameCleared();
 
         // run by typign dotnet run --project D:\Skolan\minesweeper\Minesweeper\Minesweeper.csproj
+    }
+
+    private static int[] ParseCoordinates(string userInput)
+    {
+        string[] input = userInput.Split(' ');
+        return new int[2] {Int32.Parse(input[0]), Int32.Parse(input[1])};
     }
 }

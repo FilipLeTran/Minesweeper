@@ -12,16 +12,16 @@ class Minefield
 
     public bool[,] GetBombs() { return _bombLocations; }
 
-    public int[,] RevealSquares(string guess)
+    public int[,] RevealSquares(int x, int y)
     {
-        int[] coordinates = ParseCoordinates(guess);
-        if(IsMine(coordinates[0], coordinates[1])) // dead 
+        // int[] coordinates = ParseCoordinates(guess);
+        if(IsMine(x, y)) // dead 
         {
             return null;
         } 
         else // not dead, reveal surrounding ???
         {
-            return RevealAdjacentSquares(coordinates[0], coordinates[1]);
+            return RevealAdjacentSquares(x, y);
         }  
     } 
 
@@ -81,11 +81,7 @@ class Minefield
         }
     }
 
-    public int[] ParseCoordinates(string guess)
-    {
-        string[] input = guess.Split(' ');
-        return new int[2] {StringToInt(input[0]), StringToInt(input[1])};
-    }
+    
 
     public bool IsUnexplored()
     {
@@ -102,7 +98,7 @@ class Minefield
         return false;
     }
 
-    private bool IsOutsideField(int x, int y)
+    public bool IsOutsideField(int x, int y)
     {
         return 0 > x || x >= xLength || 
                0 > y || y >= yLength;
