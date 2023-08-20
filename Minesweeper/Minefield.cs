@@ -14,74 +14,43 @@ class Minefield
 
     public int[,] RevealSquares(int x, int y)
     {
-        // int[] coordinates = ParseCoordinates(guess);
         if(IsMine(x, y)) // dead 
         {
             return null;
         } 
         else // not dead, reveal surrounding ???
         {
-            return RevealAdjacentSquares(x, y);
+            int[,] newGrid = new int[xLength, yLength];
+            return RevealAdjacentSquares(x, y, newGrid);
         }  
     } 
 
-    private int[,] RevealAdjacentSquares(int xCord, int yCord)
-    {
-        int[,] newGrid = new int[xLength, yLength];
-        for(int x = xCord-1; x <= xCord+1; x++)
-        {
-            for(int y = yCord-1; y <= yCord+1; y++)
-            {
-                if(IsOutsideField(x, y) || HasVisited(x, y)) continue;
-                if(IsMine(x, y))
-                {
-                    newGrid[x,y] = -1;   
-                }
-                else 
-                {
-                    AdjacentCalculator calc = new AdjacentCalculator(x, y, _bombLocations);
-                    int totalMines = calc.TotalAdjacentMines();
-                    if(totalMines == 10) // if empty
-                    {
-                        visitedSquares[x, y] = true;
-                        RevealAdjacentSquaresAgain(x, y, newGrid);
-                    }
-                    newGrid[x,y] = totalMines;
-                }
-                visitedSquares[x, y] = true;
-            }
-        }
-        return newGrid;
-    }
-
-    private void RevealAdjacentSquaresAgain(int xCord, int yCord, int[,] previousGrid)
+    private int[,] RevealAdjacentSquares(int xCord, int yCord, int[,] previousGrid)
     {
         for(int x = xCord-1; x <= xCord+1; x++)
         {
             for(int y = yCord-1; y <= yCord+1; y++)
             {
                 if(IsOutsideField(x, y) || HasVisited(x, y)) continue;
+                visitedSquares[x, y] = true; //prevent inf loop on empty space
                 if(IsMine(x, y))
                 {
-                    previousGrid[x,y] = -1;    
+                    previousGrid[x,y] = -1; // mines are valued as -1
                 }
                 else 
                 {
                     AdjacentCalculator calc = new AdjacentCalculator(x, y, _bombLocations);
                     int totalMines = calc.TotalAdjacentMines();
-                    if(totalMines == 10)
+                    if(totalMines == 10) // mines valued as 10 are empty spaces i.e. no surrounding mines
                     {
-                        visitedSquares[x, y] = true; //prevent inf loop on empty space
-                        RevealAdjacentSquaresAgain(x, y, previousGrid);
+                        RevealAdjacentSquares(x, y, previousGrid);
                     }
                     previousGrid[x,y] = totalMines;
                 }
-                visitedSquares[x, y] = true;
             }
         }
+        return previousGrid;
     }
-
-    
 
     public bool IsUnexplored()
     {
@@ -89,10 +58,7 @@ class Minefield
         {
             for(int k = 0; k < yLength; k++)
             {
-                if(visitedSquares[i, k] == false)
-                {
-                    return true;
-                }
+                if(visitedSquares[i, k] == false) { return true; }
             }
         }
         return false;
@@ -105,8 +71,6 @@ class Minefield
     }
     
     private bool HasVisited(int x, int y) { return visitedSquares[x, y]; }
-
-    private int StringToInt(string str) { return Int32.Parse(str); }
 
     private bool IsMine(int x, int y) { return _bombLocations[x, y]; }
 }
