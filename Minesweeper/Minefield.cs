@@ -5,7 +5,7 @@ class Minefield
 {
     private const int xLength = 5;
     private const int yLength = 5;
-    private bool[,] visitedCoordinates = new bool[xLength, yLength];
+    private bool[,] visitedSquares = new bool[xLength, yLength];
     private bool[,] _bombLocations = new bool[xLength, yLength];
 
     public void SetBomb(int x, int y) { _bombLocations[x, y] = true; }
@@ -43,11 +43,12 @@ class Minefield
                     int totalMines = calc.TotalAdjacentMines();
                     if(totalMines == 10) // if empty
                     {
-                        visitedCoordinates[x, y] = true;
+                        visitedSquares[x, y] = true;
                         RevealAdjacentSquaresAgain(x, y, newGrid);
                     }
                     newGrid[x,y] = totalMines;
                 }
+                visitedSquares[x, y] = true;
             }
         }
         return newGrid;
@@ -70,15 +71,15 @@ class Minefield
                     int totalMines = calc.TotalAdjacentMines();
                     if(totalMines == 10)
                     {
-                        visitedCoordinates[x, y] = true; //prevent inf loop on empty space
+                        visitedSquares[x, y] = true; //prevent inf loop on empty space
                         RevealAdjacentSquaresAgain(x, y, previousGrid);
                     }
                     previousGrid[x,y] = totalMines;
                 }
+                visitedSquares[x, y] = true;
             }
         }
     }
-
 
     public int[] ParseCoordinates(string guess)
     {
@@ -86,6 +87,20 @@ class Minefield
         return new int[2] {StringToInt(input[0]), StringToInt(input[1])};
     }
 
+    public bool Unexplored()
+    {
+        for(int i = 0; i < xLength; i++)
+        {
+            for(int k = 0; k < yLength; k++)
+            {
+                if(visitedSquares[i, k] == false)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     private bool IsOutsideField(int x, int y)
     {
@@ -93,7 +108,7 @@ class Minefield
                0 > y || y >= yLength;
     }
     
-    private bool HasVisited(int x, int y) { return visitedCoordinates[x, y]; }
+    private bool HasVisited(int x, int y) { return visitedSquares[x, y]; }
 
     private int StringToInt(string str) { return Int32.Parse(str); }
 

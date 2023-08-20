@@ -21,8 +21,8 @@ class Minesweeper
         //1|XX111
         //0|X31
 
-        var fieldView = new MineView(field); 
-        while(true)
+        MineView fieldView = new MineView(field); 
+        while(field.Unexplored())
         {
             string userInput = Console.ReadLine();
             if(userInput.Length != 3)
@@ -43,6 +43,8 @@ class Minesweeper
                 }
             }
         }
+        Console.WriteLine("Victory! You completed the game :)");
+
         // Game code...
         // run by typign dotnet run --project D:\Skolan\minesweeper\Minesweeper\Minesweeper.csproj
     }
