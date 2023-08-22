@@ -1,10 +1,11 @@
-namespace Minesweeper;
-
-class AdjacentConditional : Adjacent
+namespace Minesweeper
 {
-    public bool IsOutsideField(int x, int y, int xFieldLength, int yFieldLength)
+    public class AdjacentConditional : Adjacent
     {
-        return 0 > x || x >= xFieldLength || 
-               0 > y || y >= yFieldLength;
+        public bool IsOutsideField(int x, int y, int xFieldLength, int yFieldLength)
+        {
+            return 0 > x || x >= xFieldLength || 
+                   0 > y || y >= yFieldLength;
+        }
     }
 }

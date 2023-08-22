@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\Minesweeper",
+    "\\MinesweeperTest",
     "\\Minesweeper\\bin",
     "\\Minesweeper\\bin\\Debug",
-    "\\Minesweeper\\bin\\Debug\\net6.0"
+    "\\Minesweeper\\bin\\Debug\\net6.0",
+    "\\Minesweeper\\obj"
   ],
-  "SelectedNode": "\\Minesweeper\\Minesweeper.csproj",
+  "SelectedNode": "\\Minesweeper.sln",
   "PreviewInSolutionExplorer": false
 }

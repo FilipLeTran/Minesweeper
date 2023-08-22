@@ -1,70 +1,76 @@
-﻿namespace Minesweeper;
-using System;
-
-class Minefield : AdjacentConditional
+﻿namespace Minesweeper
 {
-    private const int xLength = 5;
-    private const int yLength = 5;
-    private bool[,] visitedSquares = new bool[xLength, yLength];
-    private bool[,] _bombLocations = new bool[xLength, yLength];
-
-    public void SetBomb(int x, int y) { _bombLocations[x, y] = true; }
-
-    public bool[,] GetBombs() { return _bombLocations; }
-
-    public int[,] RevealSquares(int x, int y)
+    using System;
+    public class Minefield : AdjacentConditional
     {
-        if(IsMine(x, y)) // dead 
+        private const int xLength = 5;
+        private const int yLength = 5;
+        private const int MINE_VALUE = -1;
+        private const int EMPTY_SPACE_VALUE = 10;
+    
+        private bool[,] visitedCells = new bool[xLength, yLength];
+        private bool[,] bombLocations = new bool[xLength, yLength];
+
+        public void SetBomb(int x, int y) { bombLocations[x, y] = true; }
+
+        public bool[,] GetBombs() { return bombLocations; }
+
+        public int[,]? RevealCells(int x, int y)
         {
-            return null;
+            if(IsMine(x, y)) // dead 
+            {
+                return null;
+            } 
+            else // not dead, reveal surrounding ????
+            {
+                int[,] newGrid = new int[xLength, yLength];
+                return RevealAdjacentCells(x, y, newGrid);
+            }  
         } 
-        else // not dead, reveal surrounding ???
-        {
-            int[,] newGrid = new int[xLength, yLength];
-            return RevealAdjacentSquares(x, y, newGrid);
-        }  
-    } 
 
-    private int[,] RevealAdjacentSquares(int xCord, int yCord, int[,] previousGrid)
-    {
-        for(int x = xCord-1; x <= xCord+1; x++)
+        private int[,] RevealAdjacentCells(int xCord, int yCord, int[,] previousGrid)
         {
-            for(int y = yCord-1; y <= yCord+1; y++)
+        
+        
+            for(int x = xCord - 1; x <= xCord + 1; x++)
             {
-                if(IsOutsideField(x, y, xLength, yLength) || HasVisited(x, y)) continue;
-                visitedSquares[x, y] = true; //prevent inf loop on empty space
-                if(IsMine(x, y))
+                for(int y = yCord - 1; y <= yCord + 1; y++)
                 {
-                    previousGrid[x,y] = -1; // mines are valued as -1
-                }
-                else 
-                {
-                    AdjacentCalculator calc = new AdjacentCalculator(x, y, _bombLocations);
-                    int totalMines = calc.TotalAdjacentMines();
-                    if(totalMines == 10) // mines valued as 10 are empty spaces i.e. no surrounding mines
+                    if(IsOutsideField(x, y, xLength, yLength) || HasVisited(x, y)) continue;
+                    visitedCells[x, y] = true; // prevent inf loop on empty space
+                    if(IsMine(x, y))
                     {
-                        RevealAdjacentSquares(x, y, previousGrid);
+                        previousGrid[x, y] = MINE_VALUE; // mines are valued as -1
                     }
-                    previousGrid[x,y] = totalMines;
+                    else 
+                    {
+                        AdjacentCalculator calc = new AdjacentCalculator(x, y, bombLocations);
+                        int totalMines = calc.TotalAdjacentMines();
+                        if(totalMines == EMPTY_SPACE_VALUE) // mines valued as 10 are empty spaces i.e. no surrounding mines
+                        {
+                            RevealAdjacentCells(x, y, previousGrid);
+                        }
+                        previousGrid[x, y] = totalMines;
+                    }
                 }
             }
+            return previousGrid;
         }
-        return previousGrid;
-    }
 
-    public bool IsUnexplored()
-    {
-        for(int i = 0; i < xLength; i++)
+        public bool IsUnexplored()
         {
-            for(int k = 0; k < yLength; k++)
+            for(int i = 0; i < xLength; i++)
             {
-                if(visitedSquares[i, k] == false) { return true; }
+                for(int k = 0; k < yLength; k++)
+                {
+                    if(visitedCells[i, k] == false) { return true; }
+                }
             }
+            return false;
         }
-        return false;
+
+        private bool HasVisited(int x, int y) { return visitedCells[x, y]; }
+
+        private bool IsMine(int x, int y) { return bombLocations[x, y]; }
     }
-
-    private bool HasVisited(int x, int y) { return visitedSquares[x, y]; }
-
-    private bool IsMine(int x, int y) { return _bombLocations[x, y]; }
 }

@@ -1,0 +1,16 @@
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net5.0\Minesweeper.GeneratedMSBuildEditorConfig.editorconfig
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net5.0\Minesweeper.AssemblyInfoInputs.cache
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net5.0\Minesweeper.AssemblyInfo.cs
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net5.0\Minesweeper.csproj.CoreCompileInputs.cache
+D:\Skolan\Minesweeper\Minesweeper\bin\Debug\net5.0\Minesweeper.exe
+D:\Skolan\Minesweeper\Minesweeper\bin\Debug\net5.0\Minesweeper.deps.json
+D:\Skolan\Minesweeper\Minesweeper\bin\Debug\net5.0\Minesweeper.runtimeconfig.json
+D:\Skolan\Minesweeper\Minesweeper\bin\Debug\net5.0\Minesweeper.runtimeconfig.dev.json
+D:\Skolan\Minesweeper\Minesweeper\bin\Debug\net5.0\Minesweeper.dll
+D:\Skolan\Minesweeper\Minesweeper\bin\Debug\net5.0\ref\Minesweeper.dll
+D:\Skolan\Minesweeper\Minesweeper\bin\Debug\net5.0\Minesweeper.pdb
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net5.0\Minesweeper.dll
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net5.0\ref\Minesweeper.dll
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net5.0\Minesweeper.pdb
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net5.0\Minesweeper.genruntimeconfig.cache
+D:\Skolan\minesweeper\Minesweeper\obj\Debug\net5.0\Minesweeper.csproj.AssemblyReference.cache

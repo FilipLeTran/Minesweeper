@@ -1,0 +1,5 @@
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net4.0\Minesweeper.csproj.AssemblyReference.cache
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net4.0\Minesweeper.GeneratedMSBuildEditorConfig.editorconfig
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net4.0\Minesweeper.AssemblyInfoInputs.cache
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net4.0\Minesweeper.AssemblyInfo.cs
+D:\Skolan\Minesweeper\Minesweeper\obj\Debug\net4.0\Minesweeper.csproj.CoreCompileInputs.cache
