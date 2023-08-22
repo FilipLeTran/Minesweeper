@@ -15,7 +15,7 @@ namespace MinesweeperTest
 
         // Test that the MineView object is initialized correctly
         [TestMethod]
-        public void TestInitializeMineView()
+        public void MinesweeperGame_Main_ReturnsViewObject()
         {
             // Arrange
             Minefield field = new Minefield();
@@ -30,7 +30,7 @@ namespace MinesweeperTest
         
         // Test that the Minefield object is initialized correctly
         [TestMethod]
-        public void TestInitializeMinefieldObject()
+        public void MinesweeperGame_Main_MinefieldObjectInitialized()
         {
             Minefield field = new Minefield();
 
@@ -53,7 +53,7 @@ namespace MinesweeperTest
 
         // Test that the ParseCoordinates function correctly parses valid user input
         [TestMethod]
-        public void TestParseCoordinates_ValidInput()
+        public void MinesweeperGame_Main_CatchesValidInput()
         {
             // Arrange
             string userInput = "2 3";
@@ -69,7 +69,7 @@ namespace MinesweeperTest
 
         // Test that the ParseCoordinates function correctly parses invalid user input
         [TestMethod]
-        public void TestParseCoordinates_InvalidInput()
+        public void MinesweeperGame_Main_CatchesInvalidInput()
         {
             // Arrange
             string userInput = "00";
